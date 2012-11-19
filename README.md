@@ -1,4 +1,4 @@
-myfinances
+MyFinances
 ==========
 
 Finances control and management
