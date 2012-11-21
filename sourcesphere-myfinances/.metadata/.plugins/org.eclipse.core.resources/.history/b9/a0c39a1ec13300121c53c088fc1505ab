@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    
+	<modelVersion>4.0.0</modelVersion>
+	
+	<!-- DADOS -->
+	<groupId>br.com.sourcesphere</groupId>
+	<artifactId>myfinances</artifactId>
+	<packaging>war</packaging>
+	<version>1.0</version>
+	
+	<!-- NOME -->
+	<name>MyFinances</name>
+	<url>https://github.com/SourceSphere/MyFinances</url>
+	
+	<!-- PROPRIEDADES -->
+	<properties>
+		
+	    <!-- VERSÃO DO SPRING -->
+	    <org.springframework.version>3.1.1.RELEASE</org.springframework.version>
+	
+	</properties>
+	
+	<!-- DEPENDÊNCIAS -->
+	<dependencies>
+	    
+	    <!-- JUNIT -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- SPRING WEB -->
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-web</artifactId>
+		  <version>${org.springframework.version}</version>
+		</dependency>
+		
+		<!-- SPRING WEBMVC -->
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-webmvc</artifactId>
+		  <version>${org.springframework.version}</version>
+		</dependency>
+		
+		<!-- JSTL -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+	</dependencies>
+	
+	<!-- CONFIGURAÇÃO DE BUILD -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+		<finalName>MyFinances</finalName>
+	</build>
+	
+</project>

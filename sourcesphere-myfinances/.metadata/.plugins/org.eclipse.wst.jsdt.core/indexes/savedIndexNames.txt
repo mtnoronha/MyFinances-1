@@ -1,0 +1,5 @@
+INDEX VERSION 1.122+C:\Documents and Settings\gdio\Meus documentos\Workspaces\sourcesphere-myfinances\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1678147213.index
+1518719353.index
+3218267825.index
+1786322857.index
