@@ -4,11 +4,11 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
 	http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
-	<!-- UNIDADE PRINCIAPL -->
-	<persistence-unit name="main" transaction-type="RESOURCE_LOCAL">
+	<!-- UNIDADE DE TESTES -->
+	<persistence-unit name="test">
 	
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jar-file>${project.build.outputDirectory}</jar-file>
+		<jar-file>C:\\Documents and Settings\\gdio\\Meus documentos\\Workspaces\\sourcesphere-myfinances\\myfinances\\target\\classes</jar-file>
 		
 		<properties>
 			<!-- DADOS CONEXAO -->
