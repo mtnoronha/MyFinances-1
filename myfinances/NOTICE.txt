@@ -1,0 +1,8 @@
+MyFinances - Financial Management System
+========================================
+
+This is the initial snapshot development release.
+There is no implementation yet, just the project structure.
+
+-November, 2012
+-Sourcesphere Dev Team
