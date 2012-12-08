@@ -1,18 +1,16 @@
 package br.com.sourcesphere.myfinances.model;
 
-import java.util.Calendar;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 
 @Entity
 public class Pessoa
@@ -22,8 +20,8 @@ public class Pessoa
 	@Column(nullable=false)
 	private Long id;
 	private String nome;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar dataNascimento;
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime dataNascimento;
 	@Column(length=10)
 	private String rg;
 	@Column(length=11)
@@ -51,11 +49,11 @@ public class Pessoa
 	{
 		this.nome = nome;
 	}
-	public Calendar getDataNascimento()
+	public DateTime getDataNascimento()
 	{
 		return dataNascimento;
 	}
-	public void setDataNascimento(Calendar dataNascimento)
+	public void setDataNascimento(DateTime dataNascimento)
 	{
 		this.dataNascimento = dataNascimento;
 	}

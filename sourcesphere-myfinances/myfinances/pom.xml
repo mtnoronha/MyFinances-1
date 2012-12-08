@@ -21,10 +21,36 @@
 	    <!-- VERSÃO DO SPRING -->
 	    <org.springframework.version>3.1.1.RELEASE</org.springframework.version>
 	    
+	    <!-- VERSÃO DO HIBERNATE -->
+	    <org.hibernate.version>4.0.1.Final</org.hibernate.version>
+	    
 	    <!-- NOME COMPILADO -->
 	    <project.build.finalname>MyFinances-${br.com.sourcesphere.myfinances.version}</project.build.finalname>
 	
 	</properties>
+	
+	<!-- CONFIGURAÇÃO DE BUILD -->
+	<build>
+		<finalName>${project.build.finalname}</finalName>
+		<defaultGoal>install</defaultGoal>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+		<testResources>
+	        <testResource>
+	            <directory>src/test/resources</directory>
+	            <filtering>true</filtering>
+	        </testResource>
+	    </testResources>
+	</build>
 	
 	<!-- DEPENDÊNCIAS -->
 	<dependencies>
@@ -54,7 +80,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>4.0.1.Final</version>
+			<version>${org.hibernate.version}</version>
 		</dependency>
 		
 		<!-- HIBERNATE C3P0 -->
@@ -137,6 +163,13 @@
 			<version>2.1</version>
 		</dependency>
 		
+		<!-- JADIRA USERTYPE -->
+		<dependency>
+			<groupId>org.jadira.usertype</groupId>
+			<artifactId>usertype.core</artifactId>
+			<version>3.0.0.CR1</version>
+		</dependency>
+		
 		<!-- LOG4J -->
 		<dependency>
 			<groupId>log4j</groupId>
@@ -153,28 +186,5 @@
 		</dependency>
 
 	</dependencies>
-	
-	<!-- CONFIGURAÇÃO DE BUILD -->
-	<build>
-		<finalName>${project.build.finalname}</finalName>
-		<defaultGoal>install</defaultGoal>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-		</plugins>
-		<testResources>
-	        <testResource>
-	            <directory>src/test/resources</directory>
-	            <filtering>true</filtering>
-	        </testResource>
-	    </testResources>
-	</build>
 	
 </project>

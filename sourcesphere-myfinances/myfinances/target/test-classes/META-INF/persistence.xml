@@ -8,7 +8,7 @@
 	<persistence-unit name="test">
 	
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jar-file>C:\\Documents and Settings\\gdio\\Meus documentos\\Workspaces\\sourcesphere-myfinances\\myfinances\\target\\classes</jar-file>
+		<jar-file>F:\\Instalados\\Git\\home\\ggdio\\repositorios\\MyFinances\\myfinances\\target\\classes</jar-file>
 		
 		<properties>
 			<!-- DADOS CONEXAO -->

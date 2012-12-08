@@ -11,7 +11,7 @@ public class PessoaDAO
 	public void inserir(Pessoa pessoa)
 	{
 		DatabaseManager.beginTransaction();
-		DatabaseManager.persist(pessoa);
+		DatabaseManager.persist(manager.merge(pessoa));
 		DatabaseManager.endTransaction(true);
 		DatabaseManager.clear();
 	}
@@ -19,10 +19,9 @@ public class PessoaDAO
 	public Pessoa buscar(Long id)
 	{
 		DatabaseManager.beginTransaction();
-		Pessoa pessoa =  manager.find(Pessoa.class, id);
+		Pessoa pessoa =   manager.merge(manager.find(Pessoa.class, id));
 		DatabaseManager.endTransaction(false);
 		DatabaseManager.clear();
-		manager.merge(pessoa);
 		return pessoa;
 	}
 }

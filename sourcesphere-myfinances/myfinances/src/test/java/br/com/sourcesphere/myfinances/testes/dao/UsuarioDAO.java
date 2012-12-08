@@ -10,7 +10,7 @@ public class UsuarioDAO
 	public void inserir(Usuario usuario)
 	{
 		DatabaseManager.beginTransaction();
-		DatabaseManager.persist(usuario);
+		DatabaseManager.persist(manager.merge(usuario));
 		DatabaseManager.endTransaction(true);
 		DatabaseManager.clear();
 	}

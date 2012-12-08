@@ -1,6 +1,6 @@
 package br.com.sourcesphere.myfinances.testes.hibernate;
 
-import java.util.Calendar;
+import org.joda.time.DateTime;
 
 import br.com.sourcesphere.myfinances.model.Usuario;
 import br.com.sourcesphere.myfinances.testes.dao.PessoaDAO;
@@ -12,9 +12,9 @@ public class TesteInserirUsuario extends HibernateTestavel
 	public void executarTeste(String[] args) 
 	{
 		Usuario usuario = new Usuario();
-		usuario.setPessoa(new PessoaDAO().buscar(4L));
+		usuario.setPessoa(new PessoaDAO().buscar(1L));
 		usuario.setAtivo(true);
-		usuario.setDataCadastro(Calendar.getInstance());
+		usuario.setDataCadastro(new DateTime());
 		usuario.setLogin("ggdio");
 		usuario.setSenha("senha123");
 		new UsuarioDAO().inserir(usuario);

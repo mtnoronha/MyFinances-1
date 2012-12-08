@@ -1,20 +1,18 @@
 package br.com.sourcesphere.myfinances.model;
 
-import java.util.Calendar;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
+import org.joda.time.DateTime;
 
 import br.com.sourcesphere.myfinances.seguranca.Criptografia;
 
@@ -29,10 +27,10 @@ public class Usuario
 	private Long id;
 	private String login;
 	private String senha;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar dataCadastro;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar dataAlteracao;
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime dataCadastro;
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime dataAlteracao;
 	@OneToOne @Cascade(value={CascadeType.ALL})
 	private Pessoa pessoa;
 	private Boolean ativo;
@@ -61,19 +59,19 @@ public class Usuario
 	{
 		this.senha = Criptografia.gerarHash(senha);
 	}
-	public void setDataCadastro(Calendar dataCadastro) 
+	public void setDataCadastro(DateTime dataCadastro) 
 	{
 		this.dataCadastro = dataCadastro;
 	}
-	public Calendar getDataCadastro() 
+	public DateTime getDataCadastro() 
 	{
 		return dataCadastro;
 	}
-	public void setDataAlteracao(Calendar dataAlteracao) 
+	public void setDataAlteracao(DateTime dataAlteracao) 
 	{
 		this.dataAlteracao = dataAlteracao;
 	}
-	public Calendar getDataAlteracao() 
+	public DateTime getDataAlteracao() 
 	{
 		return dataAlteracao;
 	}

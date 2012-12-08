@@ -1,5 +1,10 @@
 package br.com.sourcesphere.myfinances.controller;
 
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.jstl.core.Config;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +22,16 @@ public class HomeController
 	}
 	
 	@RequestMapping("")
-	public String indexAction()
+	public String indexAction(HttpServletRequest request,String idioma)
 	{
-		log.debug("Enviando view 'index.jsp' para o client");
-		return BASE+"index";
+		if(idioma != null)
+		{
+			log.info("Trocando o idioma da sessão["+request.getSession().getId()+"] para "+idioma);
+			Locale locale = new Locale(idioma);
+			Config.set(request.getSession(), Config.FMT_LOCALE, locale);
+			Config.set(request.getSession(), Config.FMT_FALLBACK_LOCALE, locale);
+		}
+		log.debug("Enviando a view 'construcao.jsp' para o client-side");
+		return BASE+"construcao";
 	}
 }

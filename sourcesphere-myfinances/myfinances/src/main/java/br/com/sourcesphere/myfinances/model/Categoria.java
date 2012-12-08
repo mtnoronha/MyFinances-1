@@ -3,12 +3,13 @@ package br.com.sourcesphere.myfinances.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Categoria 
 {
-	@Id @GeneratedValue @Column(nullable=false)
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY) @Column(nullable=false)
 	private Long id;
 	private String descricao;
 	
