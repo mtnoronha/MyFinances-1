@@ -29,6 +29,29 @@
 	
 	</properties>
 	
+	<!-- CONFIGURAÇÃO DE BUILD -->
+	<build>
+		<finalName>${project.build.finalname}</finalName>
+		<defaultGoal>install</defaultGoal>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+		<testResources>
+	        <testResource>
+	            <directory>src/test/resources</directory>
+	            <filtering>true</filtering>
+	        </testResource>
+	    </testResources>
+	</build>
+	
 	<!-- DEPENDÊNCIAS -->
 	<dependencies>
 		
@@ -163,28 +186,5 @@
 		</dependency>
 
 	</dependencies>
-	
-	<!-- CONFIGURAÇÃO DE BUILD -->
-	<build>
-		<finalName>${project.build.finalname}</finalName>
-		<defaultGoal>install</defaultGoal>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
-		</plugins>
-		<testResources>
-	        <testResource>
-	            <directory>src/test/resources</directory>
-	            <filtering>true</filtering>
-	        </testResource>
-	    </testResources>
-	</build>
 	
 </project>
