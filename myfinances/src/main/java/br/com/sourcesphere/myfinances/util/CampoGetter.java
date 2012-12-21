@@ -1,0 +1,70 @@
+package br.com.sourcesphere.myfinances.util;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * Classe para recuperar os campos de uma classe através de reflection.
+ * @author Guilherme Dio.
+ *
+ */
+public final class CampoGetter 
+{
+	/**
+	 * Recupera um campo específico.
+	 * @param classe    Referência a classe que deverá ser utilizada.
+	 * @param nomeCampo Nome do campo necessário.
+	 * @return {@link Field}: Campo específico da classe
+	 */
+	public static final Field getField(Class<?> classe,String nomeCampo) 
+	{
+		List<Field> campos = getFields(classe);
+		for(Field campo : campos)
+		{
+			if(campo.getName().equals(nomeCampo))
+				return campo;
+		}
+		return null;
+	}
+
+	/**
+	 * Recupera todos os campos da classe
+	 * @param classe Referência a classe que deverá ser utilizada.
+	 * @return {@link List} de {@link Field}: Lista de todos os campos da classe
+	 */
+	public static final List<Field> getFields(Class<?> classe) 
+	{
+		List<Field> campos = new ArrayList<Field>();
+		while (classe != null) 
+		{
+			campos.addAll(Arrays.asList(classe.getDeclaredFields()));
+			classe = classe.getSuperclass();
+		}
+		return campos;
+	}
+	
+	public static final Object getValue(Field campo,Object objeto)
+	{
+		Object valor = null;
+		try
+		{
+			valor = campo.get(objeto).toString();
+		}
+		catch(IllegalAccessException e)
+		{
+			campo.setAccessible(true);
+			try
+			{
+				valor = campo.get(objeto).toString();
+			}
+			catch(Exception ex)
+			{
+				valor = "###";
+			}
+			campo.setAccessible(false);
+		}
+		return valor;
+	}
+}
