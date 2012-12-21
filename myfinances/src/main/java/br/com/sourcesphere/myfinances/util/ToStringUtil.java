@@ -64,11 +64,20 @@ public class ToStringUtil
 		StringBuilder sb = new StringBuilder(clazz.getSimpleName()+":\r\n{");
 		for(Field campo : campos)
 		{
-			String valor = CampoGetter.getValue(campo, objeto).toString();
-			sb.append("\r\n"+campo.getName()+": "+valor);
+			if(!isIgnorado(campo))
+			{
+				String valor = CampoGetter.getValue(campo, objeto).toString();
+				sb.append("\r\n"+campo.getName()+": "+valor);
+			}
 		}
 		sb.append("\r\n}");
 		return sb.toString();
 	}
-
+	
+	private boolean isIgnorado(Field campo)
+	{
+		if(ignorados.contains(campo.getName()))
+			return true;
+		return false;
+	}
 }
