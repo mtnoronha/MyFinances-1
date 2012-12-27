@@ -18,10 +18,10 @@ public class HomeController
 	
 	public HomeController() 
 	{
-		log.info("Servlet 'HomeServlet' iniciada");
+		log.info("Controller: 'HomeController' iniciado");
 	}
 	
-	@RequestMapping("")
+	@RequestMapping
 	public String indexAction(HttpServletRequest request,String idioma)
 	{
 		if(idioma != null)
