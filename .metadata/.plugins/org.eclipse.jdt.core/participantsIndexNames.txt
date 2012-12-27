@@ -1,7 +1,0 @@
-INDEX VERSION 1.126
-F:\Documentos\Apostilas\Java\Workspaces\sourcesphere-myfinances\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1786322857.index
-\myfinances\src\main\resources
-C:\Documents and Settings\gdio\Meus documentos\Workspaces\sourcesphere-myfinances\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1678147213.index
-\myfinances\src\main\java
-C:\Documents and Settings\gdio\Meus documentos\Workspaces\sourcesphere-myfinances\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1786322857.index
-\myfinances\src\main\java
