@@ -21,11 +21,7 @@ public class ToStringUtil
 	
 	public static ToStringUtil getInstance()
 	{
-		if(instance == null)
-			instance = new ToStringUtil();
-		else
-			instance.clear();
-		return instance;
+		return getInstance(new HashSet<String>());
 	}
 	
 	public static ToStringUtil getInstance(Set<String> ignorados)
