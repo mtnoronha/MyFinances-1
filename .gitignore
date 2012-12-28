@@ -7,3 +7,7 @@
 
 # Workspace Metadata #
 .metadata/
+
+# Compiled Sources #
+myfinances/bin/
+myfinances/target/
