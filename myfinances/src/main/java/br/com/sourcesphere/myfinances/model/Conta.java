@@ -37,8 +37,8 @@ public class Conta
 	private List<Long> valoresPagos = new ArrayList<Long>();
 	@OneToOne @Cascade(value={CascadeType.ALL})
 	private Categoria categoria;
-	@OneToOne @Cascade(value={CascadeType.ALL})
-	private Fornecedor fornecedor;
+	//@OneToOne @Cascade(value={CascadeType.ALL})
+	//private Fornecedor fornecedor;
 	@OneToOne @Cascade(value={CascadeType.ALL})
 	private Porcentagem juros;
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -94,14 +94,14 @@ public class Conta
 	{
 		this.categoria = categoria;
 	}
-	public Fornecedor getFornecedor() 
-	{
-		return fornecedor;
-	}
-	public void setFornecedor(Fornecedor fornecedor)
-	{
-		this.fornecedor = fornecedor;
-	}
+//	public Fornecedor getFornecedor() 
+//	{
+//		return fornecedor;
+//	}
+//	public void setFornecedor(Fornecedor fornecedor)
+//	{
+//		this.fornecedor = fornecedor;
+//	}
 	public Porcentagem getJuros()
 	{
 		return juros;
