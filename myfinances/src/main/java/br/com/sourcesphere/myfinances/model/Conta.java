@@ -1,15 +1,15 @@
 package br.com.sourcesphere.myfinances.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -49,7 +49,7 @@ public class Conta
 	{
 		return id;
 	}
-	public void setId(Long id) 
+	public void setId(Long id)
 	{
 		this.id = id;
 	}
@@ -57,7 +57,7 @@ public class Conta
 	{
 		return descricao;
 	}
-	public void setDescricao(String descricao)
+	public void setDescricao(String descricao) 
 	{
 		this.descricao = descricao;
 	}
@@ -65,7 +65,7 @@ public class Conta
 	{
 		return tipoConta;
 	}
-	public void setTipoConta(TipoConta tipoConta)
+	public void setTipoConta(TipoConta tipoConta) 
 	{
 		this.tipoConta = tipoConta;
 	}
@@ -77,22 +77,37 @@ public class Conta
 	{
 		this.valor = valor;
 	}
+	public List<Pagamento> getPagamentos() 
+	{
+		return pagamentos;
+	}
+	public void addPagamento(Pagamento pagamento)
+	{
+		this.addPagamento(pagamento, true);
+	}
+	public void addPagamento(Pagamento pagamento,Boolean order)
+	{
+		this.pagamentos.add(pagamento);
+		if(order.booleanValue())
+			this.ordenarPagamentos(Pagamento.getDataComparator());
+	}
+	public void addAllPagamentos(List<Pagamento> pagamentos) 
+	{
+		if(pagamentos == null) throw new NullPointerException("Pagamento não pode ser nulo");
+		for(Pagamento pagamento : pagamentos)
+		{
+			this.addPagamento(pagamento,false);
+		}
+		this.ordenarPagamentos(Pagamento.getDataComparator());
+	}
 	public Categoria getCategoria()
 	{
 		return categoria;
 	}
-	public void setCategoria(Categoria categoria) 
+	public void setCategoria(Categoria categoria)
 	{
 		this.categoria = categoria;
 	}
-//	public Fornecedor getFornecedor() 
-//	{
-//		return fornecedor;
-//	}
-//	public void setFornecedor(Fornecedor fornecedor)
-//	{
-//		this.fornecedor = fornecedor;
-//	}
 	public Porcentagem getJuros()
 	{
 		return juros;
@@ -101,12 +116,38 @@ public class Conta
 	{
 		this.juros = juros;
 	}
-	public DateTime getDataVencimento() 
+	public DateTime getDataVencimento()
 	{
 		return dataVencimento;
 	}
 	public void setDataVencimento(DateTime dataVencimento) 
 	{
 		this.dataVencimento = dataVencimento;
-	}	
+	}
+	
+	public Boolean isVencida()
+	{
+		DateTime hoje = new DateTime();
+		if(hoje.isAfter(this.getDataVencimento()))
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public Boolean isQuitada()
+	{
+		if(pagamentos.size() > 0)
+		{
+			Pagamento pagamento = pagamentos.get(0);
+			if(pagamento.getValor() >= this.valor)
+				return true;
+		}
+		return false;
+	}
+	
+	private void ordenarPagamentos(Comparator<Pagamento> comparator)
+	{
+		Collections.sort(this.pagamentos, comparator);
+	}
 }
