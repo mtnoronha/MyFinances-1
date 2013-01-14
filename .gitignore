@@ -9,7 +9,8 @@
 .metadata/
 
 # Tomcat Server #
-Servers/
+/Servers
+/Servers/
 
 # Compiled Sources #
 myfinances/bin/
