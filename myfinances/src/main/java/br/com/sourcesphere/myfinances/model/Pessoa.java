@@ -26,6 +26,8 @@ public class Pessoa
 	private String rg;
 	@Column(length=11)
 	private String cpf;
+	@Column(length=14)
+	private String cnpj;
 	@OneToOne
 	@Cascade(value={CascadeType.ALL})
 	private Endereco endereco;
@@ -105,89 +107,4 @@ public class Pessoa
 	{
 		this.email = email;
 	}
-	
-	@Override
-	public String toString() 
-	{
-		return "Pessoa [id=" + id + ", nome=" + nome + ", dataNascimento="
-				+ dataNascimento + ", rg=" + rg + ", cpf=" + cpf
-				+ ", endereco=" + endereco + ", telefone=" + telefone
-				+ ", celular=" + celular + ", email=" + email + "]";
-	}
-
-	@Override
-	public boolean equals(Object objeto) 
-	{
-		if (this == objeto)
-			return true;
-		if (objeto == null)
-			return false;
-		if (getClass() != objeto.getClass())
-			return false;
-		Pessoa pessoa = (Pessoa) objeto;
-		if (celular == null) 
-		{
-			if (pessoa.celular != null)
-				return false;
-		} 
-		else if (!celular.equals(pessoa.celular))
-			return false;
-		if (cpf == null) 
-		{
-			if (pessoa.cpf != null)
-				return false;
-		} 
-		else if (!cpf.equals(pessoa.cpf))
-			return false;
-		if (dataNascimento == null) 
-		{
-			if (pessoa.dataNascimento != null)
-				return false;
-		} 
-		else if (!dataNascimento.equals(pessoa.dataNascimento))
-			return false;
-		if (email == null) 
-		{
-			if (pessoa.email != null)
-				return false;
-		} 
-		else if (!email.equals(pessoa.email))
-			return false;
-		if (endereco == null) 
-		{
-			if (pessoa.endereco != null)
-				return false;
-		} 
-		else if (!endereco.equals(pessoa.endereco))
-			return false;
-		if (id == null)
-		{
-			if (pessoa.id != null)
-				return false;
-		} 
-		else if (!id.equals(pessoa.id))
-			return false;
-		if (nome == null)
-		{
-			if (pessoa.nome != null)
-				return false;
-		} 
-		else if (!nome.equals(pessoa.nome))
-			return false;
-		if (rg == null)
-		{
-			if (pessoa.rg != null)
-				return false;
-		} 
-		else if (!rg.equals(pessoa.rg))
-			return false;
-		if (telefone == null)
-		{
-			if (pessoa.telefone != null)
-				return false;
-		} 
-		else if (!telefone.equals(pessoa.telefone))
-			return false;
-		return true;
-	}	
 }
