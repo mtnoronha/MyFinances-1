@@ -1,5 +1,7 @@
 package br.com.sourcesphere.myfinances.model;
 
+import java.util.Comparator;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -52,5 +54,17 @@ public class Pagamento
 	public void setObservacao(String observacao) 
 	{
 		this.observacao = observacao;
+	}
+	
+	public static Comparator<Pagamento> getDataComparator()
+	{
+		return new Comparator<Pagamento>() 
+		{
+			@Override
+			public int compare(Pagamento pagamentoA, Pagamento pagamentoB) 
+			{
+				return pagamentoA.getData().compareTo(pagamentoB.getData());
+			}
+		};
 	}
 }
