@@ -2,13 +2,18 @@ package br.com.sourcesphere.myfinances.dados;
 
 import java.text.NumberFormat;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
 /**
  * Classe que implementa cálculos de porcentagem sobre um valor
  * @author Guilherme Dio
  * @since 1.0
  */
+@Embeddable
 public class Porcentagem
 {
+	@Column
 	private Long porcento;
 	
 	public Porcentagem() {}
