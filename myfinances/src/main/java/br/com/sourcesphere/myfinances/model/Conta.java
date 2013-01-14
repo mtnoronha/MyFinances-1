@@ -3,7 +3,9 @@ package br.com.sourcesphere.myfinances.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -32,19 +34,16 @@ public class Conta
 	@Enumerated(EnumType.ORDINAL)
 	private TipoConta tipoConta;
 	private Long valor;
-	@OneToMany(mappedBy = "conta", targetEntity = Long.class, fetch = FetchType.LAZY)
-	@Cascade(value={CascadeType.ALL})
-	private List<Long> valoresPagos = new ArrayList<Long>();
+	@OneToMany
+	private List<Pagamento> pagamentos = new ArrayList<Pagamento>();
 	@OneToOne @Cascade(value={CascadeType.ALL})
 	private Categoria categoria;
 	//@OneToOne @Cascade(value={CascadeType.ALL})
 	//private Fornecedor fornecedor;
-	@OneToOne @Cascade(value={CascadeType.ALL})
+	@Embedded @Column(name="juros")
 	private Porcentagem juros;
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime dataVencimento;
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	private DateTime dataPagamento;
 	
 	public Long getId() 
 	{
@@ -78,14 +77,6 @@ public class Conta
 	{
 		this.valor = valor;
 	}
-	public List<Long> getValoresPagos()
-	{
-		return valoresPagos;
-	}
-	public void setValoresPagos(List<Long> valoresPagos) 
-	{
-		this.valoresPagos = valoresPagos;
-	}
 	public Categoria getCategoria()
 	{
 		return categoria;
@@ -117,14 +108,5 @@ public class Conta
 	public void setDataVencimento(DateTime dataVencimento) 
 	{
 		this.dataVencimento = dataVencimento;
-	}
-	public DateTime getDataPagamento() 
-	{
-		return dataPagamento;
-	}
-	public void setDataPagamento(DateTime dataPagamento)
-	{
-		this.dataPagamento = dataPagamento;
-	}
-	
+	}	
 }
