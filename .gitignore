@@ -8,6 +8,9 @@
 # Workspace Metadata #
 .metadata/
 
+# Tomcat Server #
+Servers/
+
 # Compiled Sources #
 myfinances/bin/
 myfinances/target/

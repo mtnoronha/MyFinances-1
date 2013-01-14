@@ -1,1 +1,6 @@
-/src.rar
+# Generated Sources #
+*.zip
+*.rar
+
+# Eclipse Settings #
+.settings
