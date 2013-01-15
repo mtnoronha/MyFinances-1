@@ -2,7 +2,6 @@ package br.com.sourcesphere.myfinances.dados;
 
 import java.text.NumberFormat;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -12,20 +11,29 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class Porcentagem
-{
-	@Column
+{	
+	//Instância Singleton
+	private static Porcentagem instance;
+	
+	//Valor porcento
 	private Long porcento;
 	
-	public Porcentagem() {}
+	private Porcentagem() {}
 	
 	/**
-	 * Este construtor recebe um valor por cento
-	 * @see #setPorcento(Long)
+	 * Singleton que retorna uma instancia da classe
+	 * @param valorPorCento Valor por cento a ser utilizado. Exemplos:
+	 *                      <p>Ex: Para 10%, informe 10.
+	 *                      <p>Ex: Para 50%, informe 50.
+	 *                      <p>Ex: Para 200%, informe 200.
 	 * @since 1.0
 	 */
-	public Porcentagem(Long valorPorCento)
+	public Porcentagem getInstance(Long valorPorCento)
 	{
-		setPorcento(porcento);
+		if(instance == null)
+			instance = new Porcentagem();
+		instance.setPorcento(valorPorCento);
+		return instance;
 	}
 	
 	/**
@@ -35,7 +43,7 @@ public class Porcentagem
 	 *                      <p>Ex: Para 50%, informe 50.
 	 *                      <p>Ex: Para 200%, informe 200.
 	 */
-	public void setPorcento(Long valorPorCento) 
+	private void setPorcento(Long valorPorCento) 
 	{
 		if(porcento != null)
 			this.porcento = (porcento/100);
@@ -88,11 +96,11 @@ public class Porcentagem
 	}
 	
 	/**
-	 * Calcula o percentual do valor
+	 * Calcula o valor percentual do parametro a partir da porcentagem atribuída no método {@link #getInstance(Long)}
 	 * @param valor - Parametro contendo o valor para o calculo.
 	 * @return Um Long contendo o percentual do valor.
 	 */
-	private Long calculaPorcentagem(Long valor)
+	public Long calculaPorcentagem(Long valor)
 	{
 		return porcento * valor;
 	}
