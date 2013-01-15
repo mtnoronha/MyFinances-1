@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -20,8 +19,6 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
-
-import br.com.sourcesphere.myfinances.dados.Porcentagem;
 
 @Entity
 public class Conta 
@@ -40,8 +37,7 @@ public class Conta
 	private Categoria categoria;
 	//@OneToOne @Cascade(value={CascadeType.ALL})
 	//private Fornecedor fornecedor;
-	@Embedded @Column(name="juros")
-	private Porcentagem juros;
+	private Long jurosMensal;
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime dataVencimento;
 	
@@ -77,23 +73,37 @@ public class Conta
 	{
 		this.valor = valor;
 	}
+	public Pagamento getPagamento(int posicao)
+	{
+		if(posicao >= 0)
+		{
+			if(posicao < this.getPagamentos().size())
+			{
+				return this.getPagamentos().get(posicao);
+			}
+		}
+		throw new ArrayIndexOutOfBoundsException("A posição do pagamento não existe na lista");
+	}
 	public List<Pagamento> getPagamentos() 
 	{
 		return pagamentos;
+	}
+	public void addPagamento(Pagamento pagamento,Boolean order)
+	{
+		if(pagamento != null)
+		{
+			this.pagamentos.add(pagamento);
+			if(order.booleanValue())
+				this.ordenarPagamentos(Pagamento.getDataComparator());
+		}
 	}
 	public void addPagamento(Pagamento pagamento)
 	{
 		this.addPagamento(pagamento, true);
 	}
-	public void addPagamento(Pagamento pagamento,Boolean order)
-	{
-		this.pagamentos.add(pagamento);
-		if(order.booleanValue())
-			this.ordenarPagamentos(Pagamento.getDataComparator());
-	}
 	public void addAllPagamentos(List<Pagamento> pagamentos) 
 	{
-		if(pagamentos == null) throw new NullPointerException("Pagamento não pode ser nulo");
+		if(pagamentos == null) throw new NullPointerException("Lista de pagamentos não pode ser nula");
 		for(Pagamento pagamento : pagamentos)
 		{
 			this.addPagamento(pagamento,false);
@@ -108,13 +118,29 @@ public class Conta
 	{
 		this.categoria = categoria;
 	}
-	public Porcentagem getJuros()
+	
+	/**
+	 * Get - Juros Mensal
+	 * @return Long contendo o valor do juros aplicado mensalmente sobre o valor
+	 *         <p>Formato Ex: 
+	 *         <p>Para 50%, retorna 50
+	 *         <p>Para 15,5%, retorna 15.5
+	 */
+	public Long getJurosMensal()
 	{
-		return juros;
+		return jurosMensal;
 	}
-	public void setJuros(Porcentagem juros) 
+	
+	/**
+	 * Set - Juros Mensal
+	 * @param jurosMensal - Valor do Juros mensal no seguinte formato:
+	 * 						<p>Ex:
+	 * 						<p>Para 50%, retorna 50
+	 *         				<p>Para 15,5%, retorna 15.5
+	 */
+	public void setJurosMensal(Long jurosMensal) 
 	{
-		this.juros = juros;
+		this.jurosMensal = jurosMensal;
 	}
 	public DateTime getDataVencimento()
 	{
@@ -123,27 +149,6 @@ public class Conta
 	public void setDataVencimento(DateTime dataVencimento) 
 	{
 		this.dataVencimento = dataVencimento;
-	}
-	
-	public Boolean isVencida()
-	{
-		DateTime hoje = new DateTime();
-		if(hoje.isAfter(this.getDataVencimento()))
-		{
-			return true;
-		}
-		return false;
-	}
-	
-	public Boolean isQuitada()
-	{
-		if(pagamentos.size() > 0)
-		{
-			Pagamento pagamento = pagamentos.get(0);
-			if(pagamento.getValor() >= this.valor)
-				return true;
-		}
-		return false;
 	}
 	
 	private void ordenarPagamentos(Comparator<Pagamento> comparator)
