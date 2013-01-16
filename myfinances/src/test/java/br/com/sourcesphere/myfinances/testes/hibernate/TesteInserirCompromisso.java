@@ -15,7 +15,6 @@ public class TesteInserirCompromisso extends HibernateTestavel
 		Compromisso compromisso = new Compromisso();
 		compromisso.setPessoa(new PessoaDAO().buscar(1L));
 		compromisso.setData(new DateTime().plusDays(2));
-		compromisso.setLocal("Plusoft");
 		compromisso.setPessoa(new PessoaDAO().buscar(1L));
 		compromisso.setPrioridade(Prioridade.IMPORTANTE);
 		new CompromissoDAO().inserir(compromisso);
