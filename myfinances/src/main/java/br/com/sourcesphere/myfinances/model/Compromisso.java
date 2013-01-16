@@ -15,7 +15,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 @Entity
-public final class Compromisso 
+public final class Compromisso
 {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY) @Column(nullable=false)
 	private Long id;
@@ -23,7 +23,8 @@ public final class Compromisso
 	private Pessoa pessoa;
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime data;
-	private String local;
+	@OneToOne @Cascade(value={CascadeType.ALL})
+	private Endereco local;
 	@Enumerated(EnumType.ORDINAL)
 	private Prioridade prioridade;
 	
@@ -31,7 +32,6 @@ public final class Compromisso
 	{
 		return pessoa;
 	}
-	
 	public void setPessoa(Pessoa pessoa)
 	{
 		this.pessoa = pessoa;
@@ -47,12 +47,12 @@ public final class Compromisso
 		this.data = data;
 	}
 	
-	public String getLocal() 
+	public Endereco getLocal() 
 	{
 		return local;
 	}
 	
-	public void setLocal(String local) 
+	public void Endereco(Endereco local) 
 	{
 		this.local = local;
 	}
