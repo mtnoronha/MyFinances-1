@@ -2,9 +2,6 @@ package br.com.sourcesphere.myfinances.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Cascade;
@@ -17,32 +14,23 @@ import org.joda.time.DateTime;
 import br.com.sourcesphere.myfinances.seguranca.Criptografia;
 
 @Entity
-@SQLDelete(sql="update Cliente set ativo = 0 where id = ?")
+@SQLDelete(sql="update usuario set ativo = 0 where id = ?")
 @Where(clause="ativo = 1")
-public class Usuario
+public class Usuario extends Pessoa
 {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(nullable=false)
-	private Long id;
+	@Column(unique=true,nullable=false)
 	private String login;
 	private String senha;
+	@OneToOne @Cascade(value={CascadeType.ALL})
+	private Recurso recurso;
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime dataCadastro;
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime dataAlteracao;
-	@OneToOne @Cascade(value={CascadeType.ALL})
-	private Pessoa pessoa;
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime dataUltimoLogin;
 	private Boolean ativo;
 	
-	public Long getId() 
-	{
-		return id;
-	}
-	public void setId(Long id)
-	{
-		this.id = id;
-	}
 	public String getLogin() 
 	{
 		return login;
@@ -58,6 +46,14 @@ public class Usuario
 	public void setSenha(String senha) 
 	{
 		this.senha = Criptografia.gerarHash(senha);
+	}
+	public Recurso getRecurso() 
+	{
+		return recurso;
+	}
+	public void setRecurso(Recurso recurso) 
+	{
+		this.recurso = recurso;
 	}
 	public void setDataCadastro(DateTime dataCadastro) 
 	{
@@ -75,13 +71,13 @@ public class Usuario
 	{
 		return dataAlteracao;
 	}
-	public void setPessoa(Pessoa pessoa) 
+	public void setDataUltimoLogin(DateTime dataUltimoLogin)
 	{
-		this.pessoa = pessoa;
+		this.dataUltimoLogin = dataUltimoLogin;
 	}
-	public Pessoa getPessoa() 
+	public DateTime getDataUltimoLogin() 
 	{
-		return pessoa;
+		return dataUltimoLogin;
 	}
 	public Boolean isAtivo()
 	{
