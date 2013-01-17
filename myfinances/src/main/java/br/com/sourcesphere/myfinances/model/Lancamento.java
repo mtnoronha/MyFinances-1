@@ -1,8 +1,6 @@
 package br.com.sourcesphere.myfinances.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -20,6 +18,14 @@ import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import br.com.sourcesphere.myfinances.model.util.LancamentoUtil;
+import br.com.sourcesphere.myfinances.model.util.PagamentoUtil;
+
+/**
+ * Classe que representa a entidade Lancamento
+ * @author Guilherme Dio
+ * @since 1.0
+ */
 @Entity
 public class Lancamento 
 {
@@ -36,7 +42,9 @@ public class Lancamento
 	@OneToOne @Cascade(value={CascadeType.ALL})
 	private Categoria categoria;
 	@OneToOne @Cascade(value={CascadeType.ALL})
-	private Pessoa pessoa;
+	private Usuario cliente;
+	@OneToOne @Cascade(value={CascadeType.ALL})
+	private Pessoa fornecedor;
 	private Long jurosMensal;
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime dataVencimento;
@@ -73,7 +81,7 @@ public class Lancamento
 	{
 		this.valor = valor;
 	}
-	public Pagamento getPagamento(int posicao)
+	public Pagamento getPagamento(Integer posicao)
 	{
 		if(posicao >= 0)
 		{
@@ -94,7 +102,7 @@ public class Lancamento
 		{
 			this.pagamentos.add(pagamento);
 			if(order.booleanValue())
-				this.ordenarPagamentos(Pagamento.getDataComparator());
+				ordenarPagamentos();
 		}
 	}
 	public void addPagamento(Pagamento pagamento)
@@ -108,7 +116,11 @@ public class Lancamento
 		{
 			this.addPagamento(pagamento,false);
 		}
-		this.ordenarPagamentos(Pagamento.getDataComparator());
+		ordenarPagamentos();
+	}
+	private void ordenarPagamentos()
+	{
+		LancamentoUtil.getInstance(this).ordenarPagamentos(PagamentoUtil.getInstance(null).getDataComparator());
 	}
 	public Categoria getCategoria()
 	{
@@ -118,13 +130,37 @@ public class Lancamento
 	{
 		this.categoria = categoria;
 	}
-	public void setPessoa(Pessoa pessoa) 
+	/**
+	 * Set - Usuario/Pessoa que recebeu o Lançamento(dívida)
+	 * @param cliente(Usuario do sistema)
+	 */
+	public void setCliente(Usuario cliente) 
 	{
-		this.pessoa = pessoa;
+		this.cliente = cliente;
 	}
-	public Pessoa getPessoa() 
+	/**
+	 * Get - Usuario/Pessoa que recebeu o Lançamento(dívida)
+	 * @return cliente(Usuario do sistema)
+	 */
+	public Usuario getCliente() 
 	{
-		return pessoa;
+		return cliente;
+	}
+	/**
+	 * Set - Pessoa que forneceu/enviou o Lançamento(dívida)
+	 * @param fornecedor(Pessoa Fisica ou Juridica)
+	 */
+	public void setFornecedor(Pessoa fornecedor) 
+	{
+		this.fornecedor = fornecedor;
+	}
+	/**
+	 * Get - Pessoa que forneceu/enviou o Lançamento(dívida)
+	 * @return fornecedor(Pessoa Fisica ou Juridica)
+	 */
+	public Pessoa getFornecedor() 
+	{
+		return fornecedor;
 	}
 	
 	/**
@@ -157,10 +193,5 @@ public class Lancamento
 	public void setDataVencimento(DateTime dataVencimento) 
 	{
 		this.dataVencimento = dataVencimento;
-	}
-	
-	private void ordenarPagamentos(Comparator<Pagamento> comparator)
-	{
-		Collections.sort(this.pagamentos, comparator);
 	}
 }
