@@ -1,7 +1,5 @@
 package br.com.sourcesphere.myfinances.model;
 
-import java.util.Comparator;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +9,11 @@ import javax.persistence.Id;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+/**
+ * Classe que representa a entidade Pagamento
+ * @author Guilherme Dio
+ * @since 1.0
+ */
 @Entity
 public class Pagamento 
 {
@@ -54,17 +57,5 @@ public class Pagamento
 	public void setObservacao(String observacao) 
 	{
 		this.observacao = observacao;
-	}
-	
-	public static Comparator<Pagamento> getDataComparator()
-	{
-		return new Comparator<Pagamento>() 
-		{
-			@Override
-			public int compare(Pagamento pagamentoA, Pagamento pagamentoB) 
-			{
-				return pagamentoA.getData().compareTo(pagamentoB.getData());
-			}
-		};
 	}
 }

@@ -12,6 +12,11 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+/**
+ * Classe que representa a entidade Pessoa
+ * @author Guilherme Dio
+ * @since 1.0
+ */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Pessoa

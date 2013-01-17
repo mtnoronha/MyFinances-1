@@ -6,6 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * Classe que representa a entidade Endereco
+ * @author Guilherme Dio
+ * @since 1.0
+ */
 @Entity
 public final class Endereco 
 {

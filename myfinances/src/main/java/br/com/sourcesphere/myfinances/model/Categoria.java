@@ -6,6 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * Classe que representa a entidade Categoria
+ * @author Guilherme Dio
+ * @since 1.0
+ */
 @Entity
 public class Categoria 
 {
@@ -31,11 +36,5 @@ public class Categoria
 	public String getDescricao()
 	{
 		return descricao;
-	}
-	
-	@Override
-	public String toString() 
-	{
-		return "Categoria de "+descricao;
 	}
 }

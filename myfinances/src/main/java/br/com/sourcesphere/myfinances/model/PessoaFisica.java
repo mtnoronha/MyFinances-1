@@ -2,20 +2,19 @@ package br.com.sourcesphere.myfinances.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+/**
+ * Classe que representa a entidade PessoaFisica
+ * @see Pessoa
+ * @author Guilherme Dio
+ * @since 1.0
+ */
 @Entity
 public final class PessoaFisica extends Pessoa 
 {
-//	@Id 
-//	@GeneratedValue(strategy=GenerationType.IDENTITY) 
-//	@Column(nullable=false)
-//	private Long id;
 	@Column(length=10)
 	private String rg;
 	@Column(length=11)
@@ -23,16 +22,6 @@ public final class PessoaFisica extends Pessoa
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime dataNascimento;
 	
-//	@Override
-//	public void setId(Long id) 
-//	{
-//		this.id = id;
-//	}
-//	@Override
-//	public Long getId() 
-//	{
-//		return this.id;
-//	}
 	public String getRg() 
 	{
 		return rg;

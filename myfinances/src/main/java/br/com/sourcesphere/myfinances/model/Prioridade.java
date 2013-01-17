@@ -1,5 +1,15 @@
 package br.com.sourcesphere.myfinances.model;
 
+/**
+ * Enum que representa níveis de prioridade entre as seguintes:
+ * <p> FACULTATIVO - nível 0
+ * <p> SIMPLES - nível 1
+ * <p> MODERADO - nível 2
+ * <p> IMPORTANTE - nível 3
+ * <p> INEVITAVEL - nível 4
+ * @author Guilherme Dio
+ * @since 1.0
+ */
 public enum Prioridade 
 {
 	FACULTATIVO(0),
