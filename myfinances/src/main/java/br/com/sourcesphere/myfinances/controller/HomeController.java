@@ -18,6 +18,7 @@ public class HomeController
 	
 	public HomeController() 
 	{
+		System.out.println("teste de mudança");
 		log.info("Controller: 'HomeController' iniciado");
 	}
 	
