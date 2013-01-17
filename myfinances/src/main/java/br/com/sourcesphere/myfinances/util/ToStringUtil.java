@@ -5,11 +5,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Classe para imprimir(toString) objetos dinâmicamente por reflection
+ * @author Guilherme Dio
+ * @since 1.0
+ */
 public class ToStringUtil 
 {
-	private Set<String> ignorados = new HashSet<String>();
-	
 	private static ToStringUtil instance;
+	
+	private Set<String> ignorados = new HashSet<String>();
 	
 	private ToStringUtil()
 	{}
@@ -67,6 +72,14 @@ public class ToStringUtil
 			}
 		}
 		sb.append("\r\n}");
+		return sb.toString();
+	}
+	
+	public String toString(Object... objetos)
+	{
+		StringBuilder sb = new StringBuilder();
+		for(Object objeto : objetos)
+			sb.append(this.toString(objeto));
 		return sb.toString();
 	}
 	
