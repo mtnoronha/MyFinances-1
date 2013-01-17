@@ -1,5 +1,8 @@
 package br.com.sourcesphere.myfinances.model.util;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 import org.joda.time.DateTime;
 
 import br.com.sourcesphere.myfinances.model.Lancamento;
@@ -66,5 +69,14 @@ public class LancamentoUtil
 				return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Ordena os pagamentos efetuados a partir de um comparator
+	 * @param comparator - Comparator que pode ser obtido na classe {@link PagamentoUtil}
+	 */
+	public void ordenarPagamentos(Comparator<Pagamento> comparator)
+	{
+		Collections.sort(this.lancamento.getPagamentos(), comparator);
 	}
 }
