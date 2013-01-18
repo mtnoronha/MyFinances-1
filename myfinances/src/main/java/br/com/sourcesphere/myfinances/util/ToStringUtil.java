@@ -8,6 +8,7 @@ import java.util.Set;
 /**
  * Classe para imprimir(toString) objetos dinâmicamente por reflection
  * @author Guilherme Dio
+ * @author Marco Noronha
  * @since 1.0
  */
 public class ToStringUtil 
@@ -61,13 +62,13 @@ public class ToStringUtil
 	public String toString(Object objeto)
 	{
 		Class clazz = objeto.getClass();
-		List<Field> campos = CampoGetter.getFields(clazz);
+		List<Field> campos = ReflectionUtil.getFields(clazz);
 		StringBuilder sb = new StringBuilder(clazz.getSimpleName()+":\r\n{");
 		for(Field campo : campos)
 		{
 			if(!isIgnorado(campo))
 			{
-				String valor = CampoGetter.getValue(campo, objeto).toString();
+				String valor = ReflectionUtil.getValue(clazz, campo).toString();
 				sb.append("\r\n"+campo.getName()+": "+valor);
 			}
 		}

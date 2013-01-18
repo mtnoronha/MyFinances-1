@@ -7,61 +7,54 @@ import java.util.List;
 /**
  * Classe para verificar dinamicamente se objetos são iguais, por reflection
  * @author Guilherme Dio
+ * @author Marco Noronha
  * @since 1.0
  */
 public class EqualsUtil 
 {
-	private static EqualsUtil instance;
 	
-	private Object objeto;
-	
-	private EqualsUtil() {}
-	
-	public static EqualsUtil getInstance(Object objetoPrincipal)
-	{
-		if(instance == null)
-			instance = new EqualsUtil();
-		instance.setObjeto(objetoPrincipal);
-		return instance;
-	}
-	
-	private void setObjeto(Object objeto)
-	{
-		this.objeto = objeto;
-	}
-	
-	//Sendo implementado
-	public Boolean isEquals(Object outroObjeto)
-	{
-		Class<?> clazzObjetoPrincipal = this.objeto.getClass();
-		Class<?> clazzOutroObjeto = outroObjeto.getClass();
-		if(clazzObjetoPrincipal.equals(clazzOutroObjeto))
-		{
-			List<Field> camposObjetoPrincipal = CampoGetter.getFields(clazzObjetoPrincipal);
-			List<Field> camposOutroObjeto = CampoGetter.getFields(clazzOutroObjeto);
-			for(Field campoObjetoPrincipal : camposObjetoPrincipal)
-			{
-				for(Field campoOutroObjeto : camposOutroObjeto)
-				{
-					if(campoObjetoPrincipal.equals(campoOutroObjeto))
-					{
-						if(campoObjetoPrincipal.getType().isPrimitive())
-						{
-							//Checar primitivo
-						}
-						else
-						{
-							Object valorObjetoPrincipal = CampoGetter.getValue(campoObjetoPrincipal, this.objeto);
-							Object valorOutroObjeto = CampoGetter.getValue(campoOutroObjeto, outroObjeto);
-							if(!valorObjetoPrincipal.equals(valorOutroObjeto))
-								return false;
-						}
-						break;
-					}
-				}
+	public static boolean isEqual(Object one, Object two){
+		if(ObjectUtil.nullOrEmpty(one,two)){
+			return false;
+		}
+		
+		Class<?> classOne = one.getClass();
+		Class<?> classTwo = two.getClass();
+		
+		if(!classOne.equals(classTwo)){
+			return false;
+		}
+		
+		List<Field> oneFields = ReflectionUtil.getFields(classOne);
+		List<Field> twoFields = ReflectionUtil.getFields(classTwo);
+		
+		if(oneFields.size() != twoFields.size()){
+			return false;
+		}
+
+		boolean equal = true;
+		
+		for(int i = 0; i < oneFields.size(); i++){
+			Field oneField = oneFields.get(i);
+			Field twoField = twoFields.get(i);
+			
+			if(!oneField.equals(twoField)){
+				return false;
 			}
 			
+			
+			Object valueOne = ReflectionUtil.getValue(one.getClass(), oneField);
+			Object valueTwo = ReflectionUtil.getValue(two.getClass(), twoField);
+			
+			
+			if(!valueOne.equals(valueTwo)){
+				equal = false;
+				break;
+			}
 		}
-		return true;
+		
+		return equal;
+		
 	}
+	
 }
