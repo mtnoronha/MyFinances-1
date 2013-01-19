@@ -23,7 +23,7 @@ public final class TagHoraAtual extends SimpleTagSupport
 		}
 		catch(IOException e)
 		{
-			log.error("Erro ao imprimir a hora atual na Tag: TagHoraAtual",e);
+			log.error("aaa Erro ao imprimir a hora atual na Tag: TagHoraAtual",e);
 		}
 	}
 }
